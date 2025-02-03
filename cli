@@ -1,0 +1,56 @@
+# User (One to One dengan Profile)
+
+npx sequelize-cli model:generate --name User --attributes email:string,password:string,role:string
+
+# Profile (One to One dengan User)
+
+npx sequelize-cli model:generate --name Profile --attributes UserId:integer,fullname:string,phoneNumber:string,address:string,gender:string,profilePicture:string
+
+# Pet (One to Many dengan User & Type)
+
+npx sequelize-cli model:generate --name Pet --attributes name:string,TypeId:integer,breed:string,age:integer,price:integer,gender:string,description:string,healthStatus:string,UserId:integer,image:string
+
+# Type (One to Many dengan Pet)
+
+npx sequelize-cli model:generate --name Species --attributes name:string
+
+# AdoptionRequest (Many to Many dengan Pets dan User)
+
+npx sequelize-cli model:generate --name AdoptionRequest --attributes UserId:integer,PetId:integer,status:string
+
+<!-- Users - Profiles (One-to-One)
+Setiap user memiliki satu profile
+Role user bisa sebagai adopter atau shelter
+Profile menyimpan informasi detail tentang user
+
+
+Users - Pets (One-to-Many)
+Satu shelter (user) dapat memiliki banyak pets
+Hanya user dengan role shelter yang dapat mengelola pets
+
+
+Pets - Type (Many-to-One)
+Banyak hewan peliharaan dapat termasuk dalam satu tipe contohnya
+1. Kucing
+    breed: Kucing Domestik, Kucing Persia, Kucing Siam
+
+2. Anjing
+    breed: Anjing Golden Retriever, Anjing Pitbull, Anjing Dachshund
+
+3.Kelinci
+    breed: Kelinci Angora, Kelinci Rex, Kelinci Netherland Dwarf
+
+4.Burung
+    breed: Burung Lovebird, Burung Kakatua, Burung Kenari
+5. Reptil
+    breed: Ular Boa, Kura-kura Galapagos, Iguana Hijau
+
+
+Users - AdoptionRequests (One-to-Many)
+Satu adopter dapat membuat banyak permintaan adopsi
+Mencatat status dan alasan adopsi
+
+
+Pets - AdoptionRequests (One-to-Many)
+Satu hewan dapat menerima banyak permintaan adopsi
+Melacak status setiap permintaan adopsi -->

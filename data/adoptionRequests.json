@@ -1,0 +1,20 @@
+[
+  {
+    "UserId": 2,
+    "PetId": 1,
+    "status": "pending",
+    "reason": "Ingin memiliki teman kucing yang ramah"
+  },
+  {
+    "UserId": 2,
+    "PetId": 2,
+    "status": "approved",
+    "reason": "Ingin memiliki anjing peliharaan"
+  },
+  {
+    "UserId": 1,
+    "PetId": 3,
+    "status": "rejected",
+    "reason": "saya mau teman untuk kelinci saya"
+  }
+]

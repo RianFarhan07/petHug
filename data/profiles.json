@@ -1,0 +1,26 @@
+[
+  {
+    "UserId": 1,
+    "fullname": "Shelter Satu",
+    "phoneNumber": "081234567890",
+    "address": "Jalan Shelter No. 1, Jakarta",
+    "gender": "male",
+    "profilePicture": "shelter1-profile.jpg"
+  },
+  {
+    "UserId": 2,
+    "fullname": "Adopter Pertama",
+    "phoneNumber": "082345678901",
+    "address": "Jalan Adopsi No. 2, Bandung",
+    "gender": "female",
+    "profilePicture": "adopter1-profile.jpg"
+  },
+  {
+    "UserId": 3,
+    "fullname": "Shelter Dua",
+    "phoneNumber": "083456789012",
+    "address": "Jalan Shelter No. 2, Surabaya",
+    "gender": "female",
+    "profilePicture": "shelter2-profile.jpg"
+  }
+]

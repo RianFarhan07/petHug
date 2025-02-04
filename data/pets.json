@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Milo",
+    "TypeId": 1,
+    "breed": "Kucing Domestik",
+    "age": 2,
+    "price": 500000,
+    "gender": "male",
+    "description": "Kucing ramah dan suka bermain",
+    "healthStatus": "Sehat",
+    "UserId": 1,
+    "image": "https://images.unsplash.com/photo-1574282411425-e949c106126a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8a3VjaW5nfGVufDB8fDB8fHww"
+  },
+  {
+    "name": "Buddy",
+    "TypeId": 2,
+    "breed": "Anjing Golden Retriever",
+    "age": 3,
+    "price": 2000000,
+    "gender": "male",
+    "description": "Anjing cerdas dan setia",
+    "healthStatus": "Sehat",
+    "UserId": 1,
+    "image": "https://images.unsplash.com/photo-1628672620794-dde68cdefad9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YW5qaW5nfGVufDB8fDB8fHww"
+  },
+  {
+    "name": "Fluffy",
+    "TypeId": 3,
+    "breed": "Kelinci Angora",
+    "age": 1,
+    "price": 300000,
+    "gender": "female",
+    "description": "Kelinci lucu dan lembut",
+    "healthStatus": "Sehat",
+    "UserId": 3,
+    "image": "https://images.unsplash.com/photo-1713666298636-7ae2c185bd28?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8a2VsaW5jaXxlbnwwfHwwfHx8MA%3D%3D"
+  }
+]

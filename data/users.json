@@ -1,0 +1,17 @@
+[
+  {
+    "email": "shelter1@gmail.com",
+    "password": "123123",
+    "role": "shelter"
+  },
+  {
+    "email": "adopter1@gmail.com",
+    "password": "123123",
+    "role": "adopter"
+  },
+  {
+    "email": "shelter2@gmail.com",
+    "password": "123123",
+    "role": "shelter"
+  }
+]

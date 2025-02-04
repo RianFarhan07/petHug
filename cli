@@ -69,4 +69,8 @@ Melacak status setiap permintaan adopsi -->
 
 # seed
 
-npx sequelize seed:generate --name
+npx sequelize seed:generate --name demo-user
+npx sequelize seed:generate --name demo-profile
+npx sequelize seed:generate --name demo-type
+npx sequelize seed:generate --name demo-pet
+npx sequelize seed:generate --name demo-adoption-request

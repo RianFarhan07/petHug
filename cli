@@ -12,11 +12,15 @@ npx sequelize-cli model:generate --name Pet --attributes name:string,TypeId:inte
 
 # Type (One to Many dengan Pet)
 
-npx sequelize-cli model:generate --name Species --attributes name:string
+npx sequelize-cli model:generate --name Type --attributes name:string
 
 # AdoptionRequest (Many to Many dengan Pets dan User)
 
 npx sequelize-cli model:generate --name AdoptionRequest --attributes UserId:integer,PetId:integer,status:string
+
+# Tambah Column Reason To AdoptionRequest
+
+npx sequelize-cli migration:generate --name add-reason-to-adoptionrequest-table
 
 <!-- Users - Profiles (One-to-One)
 Setiap user memiliki satu profile
@@ -46,6 +50,14 @@ Banyak hewan peliharaan dapat termasuk dalam satu tipe contohnya
     breed: Ular Boa, Kura-kura Galapagos, Iguana Hijau
 
 
+Many-to-Many terjadi pada tabel AdoptionRequests, yang menghubungkan tabel Users dan Pets.
+Seorang User bisa mengajukan banyak AdoptionRequests untuk beberapa Pets.
+Sebuah Pet bisa memiliki banyak AdoptionRequests dari berbagai Users.
+Karena hubungan Users dan Pets bersifat Many-to-Many, maka dibuat tabel perantara AdoptionRequests yang berisi:
+UserId sebagai Foreign Key ke tabel Users.
+PetId sebagai Foreign Key ke tabel Pets.
+status untuk menyimpan status permintaan adopsi.
+
 Users - AdoptionRequests (One-to-Many)
 Satu adopter dapat membuat banyak permintaan adopsi
 Mencatat status dan alasan adopsi
@@ -54,3 +66,7 @@ Mencatat status dan alasan adopsi
 Pets - AdoptionRequests (One-to-Many)
 Satu hewan dapat menerima banyak permintaan adopsi
 Melacak status setiap permintaan adopsi -->
+
+# seed
+
+npx sequelize seed:generate --name

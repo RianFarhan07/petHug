@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Profile } = require("../models");
 const bcrypt = require("bcryptjs");
 
 class UserController {
@@ -12,7 +12,16 @@ class UserController {
   static async registerUser(req, res) {
     try {
       const { email, password, role } = req.body;
-      await User.create({ email, password, role });
+      const user = await User.create({ email, password, role });
+
+      await Profile.create({
+        UserId: user.id,
+        fullname: " ",
+        phoneNumber: " ",
+        address: " ",
+        gender: " ",
+        profilePicture: " ",
+      });
 
       res.redirect("/login");
     } catch (error) {

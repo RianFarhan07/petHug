@@ -27,7 +27,7 @@
     </style>
   </head>
   <body>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a class="navbar-brand" href="/"> 🐾 PetHug </a>
         <button
@@ -46,7 +46,7 @@
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <% if (locals.user && locals.user.userRole === 'shelter') { %>
             <li class="nav-item">
-              <a class="nav-link" href="/shelter/add-about">Add</a>
+              <a class="nav-link" href="/shelter/add">Add</a>
             </li>
             <% } else { %>
             <li class="nav-item">

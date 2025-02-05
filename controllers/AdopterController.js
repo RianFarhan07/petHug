@@ -13,6 +13,7 @@ class AdopterController {
   }
   static async petDetail(req, res) {
     const { petId } = req.params;
+    const { success } = req.query;
     try {
       const pet = await Pet.findByPk(petId, {
         include: {
@@ -23,6 +24,7 @@ class AdopterController {
         user: req.session.user,
         pet,
         timeWaiting,
+        success,
       });
     } catch (error) {
       console.log(error);
@@ -39,6 +41,30 @@ class AdopterController {
         reason,
       });
       res.redirect(`/adopter/${petId}?success=true`);
+    } catch (error) {
+      console.log(error);
+      res.send(error);
+    }
+  }
+
+  static async myAdoption(req, res) {
+    try {
+      const adoptionRequests = await AdoptionRequest.findAll({
+        where: {
+          UserId: req.session.user.userId,
+        },
+        include: {
+          model: Pet,
+          include: {
+            model: Type,
+          },
+        },
+      });
+      // res.send(adoptionRequests);
+      res.render("adopter-my-adoption.ejs", {
+        user: req.session.user,
+        adoptionRequests,
+      });
     } catch (error) {
       console.log(error);
       res.send(error);

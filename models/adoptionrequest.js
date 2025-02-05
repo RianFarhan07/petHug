@@ -30,9 +30,25 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       status: DataTypes.STRING,
-      reason: DataTypes.STRING,
+      reason: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Reason is required",
+          },
+          notNull: {
+            msg: "Reason is required",
+          },
+        },
+      },
     },
     {
+      hooks: {
+        beforeCreate: (instance, options) => {
+          instance.status = "Pending";
+        },
+      },
       sequelize,
       modelName: "AdoptionRequest",
     }

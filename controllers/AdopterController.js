@@ -1,4 +1,4 @@
-const { Pet } = require("../models");
+const { Pet, Type, AdoptionRequest } = require("../models");
 const { timeWaiting } = require("../helpers/timeWaiting");
 
 class AdopterController {
@@ -6,6 +6,39 @@ class AdopterController {
     try {
       const pets = await Pet.findLongest();
       res.render("adopter-home", { user: req.session.user, pets, timeWaiting });
+    } catch (error) {
+      console.log(error);
+      res.send(error);
+    }
+  }
+  static async petDetail(req, res) {
+    const { petId } = req.params;
+    try {
+      const pet = await Pet.findByPk(petId, {
+        include: {
+          model: Type,
+        },
+      });
+      res.render("adopter-pet-detail.ejs", {
+        user: req.session.user,
+        pet,
+        timeWaiting,
+      });
+    } catch (error) {
+      console.log(error);
+      res.send(error);
+    }
+  }
+  static async adoptPet(req, res) {
+    const { petId } = req.params;
+    try {
+      const { reason } = req.body;
+      await AdoptionRequest.create({
+        PetId: petId,
+        UserId: req.session.user.userId,
+        reason,
+      });
+      res.redirect(`/adopter/${petId}?success=true`);
     } catch (error) {
       console.log(error);
       res.send(error);

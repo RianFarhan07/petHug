@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
 
     static async findLongest() {
       const pets = await Pet.findAll({
-        order: [["createdAt", "ASC"]],  
+        order: [["createdAt", "ASC"]],
         limit: 6,
         include: {
           model: sequelize.models.Type,
@@ -140,8 +140,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      adopted: {
+        type: DataTypes.BOOLEAN,
+      },
     },
     {
+      hooks: {
+        beforeCreate: (pet) => {
+          pet.adopted = false;
+        },
+      },
       sequelize,
       modelName: "Pet",
     }

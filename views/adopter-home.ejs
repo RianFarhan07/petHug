@@ -5,19 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
+  <style>
+    :root {
+      --primary-color: #000000;
+      --secondary-color: #00bfff;
+      --soft-background: #f4f5f7;
+    }
+
+    .section-header {
+      background: linear-gradient(
+        to right,
+        var(--primary-color),
+        var(--secondary-color)
+      );
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .section-header .btn-outline-info {
+      color: white;
+      border-color: white;
+      transition: all 0.3s ease;
+    }
+
+    .section-header .btn-outline-info:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  </style>
   <body>
     <%- include('partials/navbar.ejs') %> <%- include('partials/hero.ejs') %>
 
     <div class="container mt-5">
-      <h2 class="text-center mb-4 text-bg-dark position-relative">
-        Pet Waiting To Long 😿
-        <a
-          href="/see-all"
-          class="btn btn-outline-info"
-          style="text-decoration: none"
-          >See All</a
-        >
-      </h2>
+      <div class="section-header">
+        <h2>Pet Waiting Too Long 😿</h2>
+        <a href="/see-all" class="btn btn-outline-info">See All</a>
+      </div>
       <div class="row">
         <% if (pets.length === 0) { %>
         <div class="col-12">
@@ -45,7 +78,7 @@
               </p>
               <div class="d-flex justify-content-between mt-3">
                 <a
-                  href="/pet/<%= pet.id %>"
+                  href="/adopter/<%= pet.id %>"
                   class="btn btn-outline-primary btn-sm"
                 >
                   See Detail

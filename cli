@@ -22,6 +22,8 @@ npx sequelize-cli model:generate --name AdoptionRequest --attributes UserId:inte
 
 npx sequelize-cli migration:generate --name add-reason-to-adoptionrequest-table
 
+npx sequelize-cli migration:generate --name add-adopted-to-pet-table
+
 <!-- Users - Profiles (One-to-One)
 Setiap user memiliki satu profile
 Role user bisa sebagai adopter atau shelter

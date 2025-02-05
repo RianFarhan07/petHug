@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pet Adoption - Detailed Profile</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #000000;
+        --secondary-color: #00bfff;
+        --soft-background: #f4f5f7;
+      }
+
+      .back-button-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px !important;
+      }
+
+      .back-button {
+        display: flex;
+        align-items: center;
+        color: var(--primary-color) !important;
+        text-decoration: none !important;
+        font-weight: 600 !important;
+        transition: transform 0.2s ease !important;
+      }
+
+      .back-button:hover {
+        transform: translateX(-5px) !important;
+        color: var(--secondary-color) !important;
+      }
+
+      .pet-profile-container {
+        background: white !important;
+        border-radius: 15px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+        overflow: hidden !important;
+        margin-top: 50px !important;
+      }
+
+      .pet-image-wrapper {
+        position: relative !important;
+        height: 450px !important;
+        overflow: hidden !important;
+      }
+
+      .pet-image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        transition: transform 0.3s ease !important;
+      }
+
+      .pet-image-wrapper:hover .pet-image {
+        transform: scale(1.05) !important;
+      }
+
+      .pet-details {
+        padding: 30px !important;
+      }
+
+      .pet-name {
+        color: var(--secondary-color) !important;
+        font-weight: 700 !important;
+        font-size: 2.5rem !important;
+      }
+
+      .info-card {
+        background: #ffffff !important;
+        border: 1px solid #e1e5eb !important;
+        border-radius: 10px !important;
+        margin-bottom: 20px !important;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05) !important;
+      }
+
+      .info-card .list-group-item {
+        border: none !important;
+        padding: 12px 15px !important;
+        transition: background-color 0.3s ease !important;
+      }
+
+      .info-card .list-group-item:hover {
+        background-color: rgba(41, 128, 255, 0.05) !important;
+      }
+
+      .health-status {
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+      }
+
+      .action-buttons {
+        display: flex !important;
+        gap: 15px !important;
+      }
+
+      .btn-adopt {
+        background: linear-gradient(
+          to right,
+          var(--primary-color),
+          var(--secondary-color)
+        ) !important;
+        border: none !important;
+        transition: transform 0.2s ease !important;
+      }
+
+      .btn-adopt:hover {
+        transform: translateY(-3px) !important;
+        box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4) !important;
+      }
+
+      .description-card {
+        background-color: #f8f9fa !important;
+        border-left: 4px solid var(--primary-color) !important;
+      }
+
+      .adoption-reason-section {
+        margin-top: 20px !important;
+        background-color: var(--soft-background) !important;
+        border-radius: 10px !important;
+        padding: 20px !important;
+      }
+
+      .adoption-reason-textarea {
+        border-color: var(--secondary-color) !important;
+      }
+
+      .adoption-reason-textarea:focus {
+        border-color: var(--primary-color) !important;
+        box-shadow: 0 0 0 0.25rem rgba(0, 191, 255, 0.25) !important;
+      }
+
+      @media (max-width: 768px) {
+        .pet-image-wrapper {
+          height: 300px !important;
+        }
+        .pet-details {
+          padding: 20px !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('partials/navbar.ejs') %>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 pet-profile-container">
+          <div class="row g-0">
+            <div class="col-md-6 pet-image-wrapper">
+              <img src="<%= pet.image %>" alt="Pet Image" class="pet-image" />
+            </div>
+
+            <div class="col-md-6 pet-details">
+              <h1 class="display-6 pet-name"><%= pet.name %></h1>
+
+              <div class="card info-card mb-3">
+                <div class="card-body p-0">
+                  <ul class="list-group list-group-flush">
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      <span
+                        ><i class="fas fa-paw me-2 text-muted"></i>Breed</span
+                      >
+                      <strong><%= pet.breed %></strong>
+                    </li>
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      <span
+                        ><i class="fas fa-birthday-cake me-2 text-muted"></i
+                        >Age</span
+                      >
+                      <strong><%= pet.age %> years</strong>
+                    </li>
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      <span
+                        ><i class="fas fa-venus-mars me-2 text-muted"></i
+                        >Gender</span
+                      >
+                      <strong><%= pet.gender %></strong>
+                    </li>
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      <span
+                        ><i class="fas fa-heart me-2 text-muted"></i>Health
+                        Status</span
+                      >
+                      <strong class="health-status text-success"
+                        ><%= pet.healthStatus %></strong
+                      >
+                    </li>
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      <span
+                        ><i class="fas fa-tag me-2 text-muted"></i>Price</span
+                      >
+                      <strong>Rp.<%= (pet.price).toLocaleString() %></strong>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="card description-card mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">About <%= pet.name %></h5>
+                  <p class="card-text text-muted"><%= pet.description %></p>
+                </div>
+              </div>
+
+              <form
+                id="adoptionForm"
+                action="/adopter/<%= pet.id %>/adopt"
+                method="POST"
+              >
+                <div class="action-buttons">
+                  <button
+                    type="submit"
+                    class="btn btn-adopt btn-primary flex-grow-1"
+                  >
+                    <i class="fas fa-home me-2"></i>Adopt <%= pet.name %>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary flex-grow-1"
+                  >
+                    <i class="fas fa-envelope me-2"></i>Contact
+                  </button>
+                </div>
+
+                <div class="adoption-reason-section">
+                  <h5 class="mb-3">Adopt Reason</h5>
+                  <textarea
+                    name="reason"
+                    id="adoptionReason"
+                    class="form-control adoption-reason-textarea"
+                    rows="4"
+                    placeholder="Write why you want to adopt <%= pet.name %>"
+                    required
+                  ></textarea>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

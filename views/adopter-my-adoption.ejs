@@ -10,7 +10,7 @@
     />
   </head>
   <body>
-    <%- include("./partials/navbar.ejs") %>>
+    <%- include("./partials/navbar.ejs") %>
 
     <div class="container mt-4">
       <h2>My Adoption Requests</h2>
@@ -22,7 +22,7 @@
       <% } else { %>
       <div class="row">
         <% adoptionRequests.forEach(request => { %>
-        <div class="col-md-6 mb-4">
+        <div class="col-md-4 mb-4">
           <div class="card">
             <% if (request.Pet.image) { %>
             <img
@@ -35,12 +35,6 @@
             <div class="card-body">
               <h5 class="card-title"><%= request.Pet.name %></h5>
               <p class="card-text">
-                <strong>Type:</strong> <%= request.Pet.Type.name %><br />
-                <strong>Breed:</strong> <%= request.Pet.breed %><br />
-                <strong>Age:</strong> <%= request.Pet.age %> years<br />
-                <strong>Gender:</strong> <%= request.Pet.gender %><br />
-                <strong>Health Status:</strong> <%= request.Pet.healthStatus
-                %><br />
                 <strong>Request Status:</strong>
                 <span
                   class="badge <%= request.status === 'pending' ? 'bg-warning' : request.status === 'approved' ? 'bg-success' : 'bg-danger' %>"
@@ -50,22 +44,11 @@
               </p>
               <p class="card-text">
                 <small class="text-muted"
-                  >Price: $<%= request.Pet.price %></small
+                  >Requested <%= request.createdAt ? Math.floor((new Date() -
+                  new Date(request.createdAt)) / (1000 * 60 * 60 * 24)) : 0 %>
+                  days ago</small
                 >
               </p>
-            </div>
-            <div class="card-footer">
-              <% if (request.status === 'pending') { %>
-              <form
-                action="/adoption-requests/<%= request.id %>/cancel"
-                method="POST"
-                style="display: inline"
-              >
-                <button type="submit" class="btn btn-danger">
-                  Cancel Request
-                </button>
-              </form>
-              <% } %>
             </div>
           </div>
         </div>

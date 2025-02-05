@@ -29,7 +29,11 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="/"> 🐾 PetHug </a>
+        <% if (locals.user && locals.user.userRole === 'shelter'){%>
+        <a class="navbar-brand" href="/shelter"> 🐾 PetHug </a>
+        <% }else { %>
+        <a class="navbar-brand" href="/adopter"> 🐾 PetHug </a>
+        <% } %>
         <button
           class="navbar-toggler"
           type="button"

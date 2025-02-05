@@ -4,6 +4,11 @@ const bcrypt = require("bcryptjs");
 class UserController {
   static async registerForm(req, res) {
     try {
+      if (req.session.user) {
+        return res.redirect(
+          req.session.user.userRole === "adopter" ? "/adopter" : "/shelter"
+        );
+      }
       res.render("auth-pages/register-form");
     } catch (error) {
       res.send(error);
@@ -31,6 +36,11 @@ class UserController {
   }
   static async loginForm(req, res) {
     try {
+      if (req.session.user) {
+        return res.redirect(
+          req.session.user.userRole === "adopter" ? "/adopter" : "/shelter"
+        );
+      }
       const { error } = req.query;
       res.render("auth-pages/login-form", { error });
     } catch (error) {
@@ -53,7 +63,7 @@ class UserController {
           if (user.role === "shelter") {
             return res.redirect("/shelter");
           } else {
-            return res.redirect("/");
+            return res.redirect("/adopter");
           }
         } else {
           res.redirect("/login?error=Wrong Password");

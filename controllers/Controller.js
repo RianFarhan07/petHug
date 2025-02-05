@@ -1,7 +1,12 @@
 class Controller {
   static async home(req, res) {
     try {
-      res.render("home", { user: req.session.user });
+      if (req.session.user) {
+        return res.redirect(
+          req.session.user.userRole === "adopter" ? "/adopter" : "/shelter"
+        );
+      }
+      res.render("home");
     } catch (error) {
       res.send(error);
     }

@@ -4,18 +4,157 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
-    <title>Document</title>
+    <title>Welcome to PetHug</title>
+    <style>
+      .welcome-section {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+          url("https://images.unsplash.com/photo-1516007049085-2a9077b4b512?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+        background-size: cover;
+        background-position: center;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+      .welcome-text {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      #particles-js {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+      }
+      .btn {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    </style>
   </head>
   <body>
-    <%- include('partials/navbar.ejs') %> <%- include('partials/hero.ejs') %>
-    <div class="container mt-5">
-      <div class="row">
-        <div class="col-md-12">
-          <h1>Welcome to My Project</h1>
-          <p class="lead">This is a Bootstrap-enabled EJS template.</p>
+    <div class="welcome-section">
+      <div id="particles-js"></div>
+      <div class="container text-center content-wrapper">
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <h1 class="display-4 fw-bold mb-4 welcome-text">
+              Welcome to PetHug
+            </h1>
+            <p class="lead mb-4">
+              <span id="typed-text"></span>
+            </p>
+            <div class="mt-5">
+              <a href="/login" class="btn btn-dark btn-lg px-4 me-3">Login</a>
+              <a href="/register" class="btn btn-outline-light btn-lg px-4"
+                >Register</a
+              >
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
     <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+      particlesJS("particles-js", {
+        particles: {
+          number: {
+            value: 80,
+            density: {
+              enable: true,
+              value_area: 800,
+            },
+          },
+          color: {
+            value: "#ffffff",
+          },
+          shape: {
+            type: "circle",
+          },
+          opacity: {
+            value: 0.5,
+            random: false,
+          },
+          size: {
+            value: 3,
+            random: true,
+          },
+          line_linked: {
+            enable: true,
+            distance: 150,
+            color: "#ffffff",
+            opacity: 0.4,
+            width: 1,
+          },
+          move: {
+            enable: true,
+            speed: 2,
+            direction: "none",
+            random: false,
+            straight: false,
+            out_mode: "out",
+            bounce: false,
+          },
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: {
+              enable: true,
+              mode: "repulse",
+            },
+            onclick: {
+              enable: true,
+              mode: "push",
+            },
+            resize: true,
+          },
+        },
+        retina_detect: true,
+      });
+
+      new Typed("#typed-text", {
+        strings: [
+          "Where Every Paw Finds a Home!",
+          "Adopt, Love, Cherish",
+          "Give a Pet a Second Chance",
+          "Open Your Heart, Adopt a Pet",
+        ],
+        typeSpeed: 50,
+        backSpeed: 30,
+        backDelay: 2000,
+        loop: true,
+      });
+
+      window.addEventListener("DOMContentLoaded", () => {
+        gsap.from(".welcome-text", {
+          duration: 1,
+          y: -50,
+          opacity: 0,
+          ease: "power3.out",
+        });
+
+        gsap.to(".btn", {
+          duration: 1,
+          y: 0,
+          opacity: 1,
+          stagger: 0.2,
+          ease: "power3.out",
+          delay: 1,
+        });
+      });
+    </script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 const { Pet } = require("../models");
-class PetController {
+class ShelterController {
   static async getAllPet(req, res) {
     try {
       // console.log(req.session.user);
@@ -20,4 +20,4 @@ class PetController {
   }
 }
 
-module.exports = PetController;
+module.exports = ShelterController;

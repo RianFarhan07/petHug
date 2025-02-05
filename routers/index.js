@@ -17,7 +17,9 @@ router.get("/", Controller.home);
 router.use(isAuthenticated);
 
 router.get("/adopter", isAdopter, AdopterController.home);
-router.get("/logout", UserController.logOut);
 router.get("/shelter", isShelter, ShelterController.getAllPet);
+router.get("/shelter/addPet", ShelterController.addPetForm);
+router.post("/shelter/addPet", ShelterController.addPet);
+router.get("/logout", UserController.logOut);
 
 module.exports = router;

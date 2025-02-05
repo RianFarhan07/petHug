@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <style>
+    .navbar {
+      background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    }
+  </style>
+  <body>
+    <%- include('partials/navbar.ejs') %> <% if ( errors) { %>
+    <script>
+      const errorMessages = `<%= errors %>`.split(";").join(",");
+      Swal.fire({
+        icon: "error",
+        title: "Validation Error",
+        text: errorMessages,
+        confirmButtonColor: "#3498db",
+      });
+    </script>
+    <% } %>
+
+    <div class="container">
+      <div class="form-container">
+        <h2 class="text-center mb-4">Add New Pet</h2>
+        <form action="/shelter/addPet" method="POST">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="name" class="form-label required-field"
+                  >Pet Name</label
+                >
+                <input type="text" class="form-control" id="name" name="name" />
+              </div>
+
+              <div class="mb-3">
+                <label for="TypeId" class="form-label required-field"
+                  >Pet Type</label
+                >
+                <select class="form-select" id="TypeId" name="TypeId">
+                  <option value="">Select pet type</option>
+                  <% types.forEach((el) => { %>
+                  <option value="<%= el.id %>"><%= el.name %></option>
+                  <% }); %>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="breed" class="form-label required-field"
+                  >Breed</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="breed"
+                  name="breed"
+                />
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="age" class="form-label required-field"
+                      >Age (years)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="age"
+                      name="age"
+                      min="0"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="price" class="form-label required-field"
+                      >Price (Rp)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="price"
+                      name="price"
+                      min="0"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="gender" class="form-label required-field"
+                  >Gender</label
+                >
+                <select class="form-select" id="gender" name="gender">
+                  <option value="">Select gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="healthStatus" class="form-label required-field"
+                  >Health Status</label
+                >
+                <select
+                  class="form-select"
+                  id="healthStatus"
+                  name="healthStatus"
+                >
+                  <option value="">Select health status</option>
+                  <option value="Healthy">Healthy</option>
+                  <option value="Needs Medical Attention">
+                    Needs Medical Attention
+                  </option>
+                  <option value="Under Treatment">Under Treatment</option>
+                  <option value="Recovered">Recovered</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="description" class="form-label required-field"
+                  >Description</label
+                >
+                <textarea
+                  class="form-control"
+                  id="description"
+                  name="description"
+                  rows="4"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="image" class="form-label required-field">Image</label>
+            <input type="text" class="form-control" id="image" name="image" />
+          </div>
+
+          <div class="text-center mt-4">
+            <input
+              type="submit"
+              value="Add Pet"
+              class="btn btn-primary btn-lg px-5"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

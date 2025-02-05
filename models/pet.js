@@ -26,6 +26,28 @@ module.exports = (sequelize, DataTypes) => {
         "Recovered",
       ];
     }
+
+    static async findRandom() {
+      const pets = await Pet.findAll({
+        order: sequelize.random(),
+        limit: 6,
+        include: {
+          model: sequelize.models.Type,
+        },
+      });
+      return pets;
+    }
+
+    static async findLongest() {
+      const pets = await Pet.findAll({
+        order: [["createdAt", "ASC"]],  
+        limit: 6,
+        include: {
+          model: sequelize.models.Type,
+        },
+      });
+      return pets;
+    }
   }
   Pet.init(
     {

@@ -44,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       role: {
         type: DataTypes.STRING,
+        allowNull: false,
         validate: {
           notNull: { msg: "Role is required" },
           notEmpty: { msg: "Role cannot be empty" },

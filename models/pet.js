@@ -13,6 +13,19 @@ module.exports = (sequelize, DataTypes) => {
       Pet.belongsTo(models.User);
       Pet.hasMany(models.AdoptionRequest);
     }
+
+    static gender() {
+      return ["Male", "Female"];
+    }
+
+    static healthStatus() {
+      return [
+        "Healthy",
+        "Needs Medical Attention",
+        "Under Treatment",
+        "Recovered",
+      ];
+    }
   }
   Pet.init(
     {

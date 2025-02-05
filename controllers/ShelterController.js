@@ -68,6 +68,89 @@ class ShelterController {
       }
     }
   }
+  static async editPetForm(req, res) {
+    try {
+      const { errors } = req.query;
+      const { petId } = req.params;
+      const pet = await Pet.findByPk(petId);
+      const types = await Type.findAll();
+      const genderOption = Pet.gender();
+      const healthStatusOption = Pet.healthStatus();
+      console.log(pet);
+
+      res.render("edit-pet.ejs", {
+        pet,
+        types,
+        user: req.session.user,
+        genderOption,
+        healthStatusOption,
+        errors,
+      });
+    } catch (error) {
+      console.log(error);
+      res.send(error);
+    }
+  }
+
+  static async editPet(req, res) {
+    try {
+      const { petId } = req.params;
+      const {
+        name,
+        TypeId,
+        breed,
+        age,
+        price,
+        gender,
+        description,
+        healthStatus,
+        image,
+      } = req.body;
+
+      await Pet.update(
+        {
+          name,
+          TypeId,
+          breed,
+          age,
+          price,
+          gender,
+          description,
+          healthStatus,
+          image,
+        },
+        {
+          where: {
+            id: petId,
+          },
+        },
+        res.redirect("/shelter")
+      );
+    } catch (error) {
+      if (error.name === "SequelizeValidationError") {
+        const errors = error.errors.map((err) => err.message);
+        res.redirect(`/shelter/addPet?errors=` + errors.join(";"));
+      } else {
+        console.log(error);
+        res.send(error);
+      }
+    }
+  }
+
+  static async deletePet(req, res) {
+    try {
+      const { petId } = req.params;
+      await Pet.destroy({
+        where: {
+          id: petId,
+        },
+      });
+      res.redirect("/shelter");
+    } catch (error) {
+      console.log(error);
+      res.send(error);
+    }
+  }
 }
 
 module.exports = ShelterController;

@@ -20,6 +20,9 @@ router.get("/adopter", isAdopter, AdopterController.home);
 router.get("/shelter", isShelter, ShelterController.getAllPet);
 router.get("/shelter/addPet", ShelterController.addPetForm);
 router.post("/shelter/addPet", ShelterController.addPet);
+router.get("/shelter/:petId/edit", ShelterController.editPetForm);
+router.post("/shelter/:petId/edit", ShelterController.editPet);
+router.get("/shelter/:petId/delete", ShelterController.deletePet);
 router.get("/logout", UserController.logOut);
 
 module.exports = router;

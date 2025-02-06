@@ -18,6 +18,7 @@ router.use(isAuthenticated);
 
 router.get("/adopter", isAdopter, AdopterController.home);
 router.get("/adopter/request", isAdopter, AdopterController.myAdoption);
+router.get("/adopter/search", isAdopter, AdopterController.searchForm);
 router.get("/adopter/:petId", isAdopter, AdopterController.petDetail);
 router.post("/adopter/:petId/adopt", isAdopter, AdopterController.adoptPet);
 router.get("/shelter", isShelter, ShelterController.getAllPet);

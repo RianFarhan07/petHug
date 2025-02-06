@@ -1,5 +1,6 @@
 const { Pet, Type, AdoptionRequest } = require("../models");
 const { timeWaiting } = require("../helpers/timeWaiting");
+const { Op, where } = require("sequelize");
 
 class AdopterController {
   static async home(req, res) {
@@ -68,6 +69,38 @@ class AdopterController {
       res.render("adopters/adopter-my-adoption.ejs", {
         user: req.session.user,
         adoptionRequests,
+      });
+    } catch (error) {
+      console.log(error);
+      res.send(error);
+    }
+  }
+
+  static async searchForm(req, res) {
+    try {
+      const { type, name } = req.query;
+      const options = {
+        include: {
+          model: Type,
+        },
+        where: {},
+      };
+      if (type) {
+        options.where.TypeId = type;
+      }
+      if (name) {
+        options.where.name = {
+          [Op.iLike]: `%${name}%`,
+        };
+      }
+
+      const types = await Type.findAll();
+      const pets = await Pet.findAll(options);
+
+      res.render("adopters/pet-search.ejs", {
+        user: req.session.user,
+        pets,
+        types,
       });
     } catch (error) {
       console.log(error);

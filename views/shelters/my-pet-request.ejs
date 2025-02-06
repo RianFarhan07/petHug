@@ -13,17 +13,35 @@
     .navbar {
       background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
     }
+
     .table-responsive {
       overflow-x: auto;
     }
   </style>
+
   <body>
     <%- include('../partials/navbar.ejs') %>
 
     <div class="container mt-4">
       <h2>My Pet Requests</h2>
 
-      <% if (requests.length === 0) { %>
+      <form class="mb-4">
+        <div class="input-group">
+          <select name="petId" class="form-select" style="max-width: 200px">
+            <option value="">All Pets</option>
+            <% myPetsName.forEach(pet => { %> <% if (pet.id == petId) { %>
+            <option value="<%= pet.id %>" selected><%= pet.name %></option>
+            <% } else { %>
+            <option value="<%= pet.id %>"><%= pet.name %></option>
+            <% } %> <% }) %>
+          </select>
+          <button type="submit" class="btn btn-outline-secondary">
+            Filter
+          </button>
+        </div>
+      </form>
+
+      <% if (!myPets.some(pet=> pet.AdoptionRequests.length > 0)) { %>
       <div class="alert alert-info">Your Pet Doesn't have any request yet.</div>
       <% } else { %>
       <div class="table-responsive">
@@ -38,9 +56,10 @@
             </tr>
           </thead>
           <tbody>
-            <% requests.forEach(request => { %>
+            <% myPets.forEach(pet=> { %> <%
+            pet.AdoptionRequests.forEach(request=> { %>
             <tr>
-              <td><%= request.Pet.name %></td>
+              <td><%= pet.name %></td>
               <td>
                 <span
                   class="badge <%= request.status === 'Pending' ? 'bg-warning' : request.status === 'Approved' ? 'bg-success' : 'bg-danger' %>"
@@ -49,9 +68,8 @@
                 </span>
               </td>
               <td>
-                <%= request.createdAt ? Math.floor((new Date() - new
-                Date(request.createdAt)) / (1000 * 60 * 60 * 24)) : 0 %> days
-                ago
+                <%= Math.floor((new Date() - new Date(request.createdAt)) /
+                (1000 * 60 * 60 * 24)) %> days ago
               </td>
               <td><%= request.User ? request.User.email : 'N/A' %></td>
               <td>
@@ -63,7 +81,7 @@
                 </a>
               </td>
             </tr>
-            <% }) %>
+            <% }) %> <% }) %>
           </tbody>
         </table>
       </div>

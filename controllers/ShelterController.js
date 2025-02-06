@@ -169,34 +169,75 @@ class ShelterController {
       res.send(error);
     }
   }
+
+  // static async myPetRequest(req, res) {
+  //   try {
+  //     const myPets = await Pet.findAll({
+  //       where: {
+  //         UserId: req.session.user.userId,
+  //       },
+  //     });
+
+  //     const petIds = myPets.map((pet) => pet.id);
+  //     console.log(petIds);
+
+  //     const requests = await AdoptionRequest.findAll({
+  //       where: {
+  //         PetId: {
+  //           [Op.in]: petIds,
+  //         },
+  //       },
+  //       include: [
+  //         {
+  //           model: Pet,
+  //         },
+  //         {
+  //           model: User,
+  //         },
+  //       ],
+  //     });
+  //     // res.render("shelters/my-pet-request.ejs", {
+  //     //   requests,
+  //     //   user: req.session.user,
+  //     // });
+  //     res.send(requests);
+  //   } catch (error) {
+  //     console.log(error);
+  //     res.send(error);
+  //   }
+  // }
+
   static async myPetRequest(req, res) {
     try {
-      const myPets = await Pet.findAll({
+      const { petId } = req.query;
+      const options = {
+        include: {
+          model: AdoptionRequest,
+          include: {
+            model: User,
+          },
+        },
+        where: {
+          UserId: req.session.user.userId,
+        },
+      };
+      if (petId) {
+        options.where.id = petId;
+      }
+      const myPets = await Pet.findAll(options);
+
+      const myPetsName = await Pet.findAll({
         where: {
           UserId: req.session.user.userId,
         },
       });
+      console.log(myPetsName);
 
-      const petIds = myPets.map((pet) => pet.id);
-      console.log(petIds);
-
-      const requests = await AdoptionRequest.findAll({
-        where: {
-          PetId: {
-            [Op.in]: petIds,
-          },
-        },
-        include: [
-          {
-            model: Pet,
-          },
-          {
-            model: User,
-          },
-        ],
-      });
+      // res.send(myPets);
       res.render("shelters/my-pet-request.ejs", {
-        requests,
+        myPets,
+        myPetsName,
+        petId,
         user: req.session.user,
       });
     } catch (error) {

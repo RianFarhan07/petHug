@@ -106,10 +106,7 @@
                 <p><strong>Breed:</strong> <%= request.Pet.breed %></p>
                 <p><strong>Age:</strong> <%= request.Pet.age %> years</p>
                 <p><strong>Gender:</strong> <%= request.Pet.gender %></p>
-                <p>
-                  <strong>Price:</strong> Rp.<%=
-                  request.Pet.price.toLocaleString() %>
-                </p>
+                <p><strong>Price:</strong><%= request.Pet.priceInRp %></p>
               </div>
             </div>
 

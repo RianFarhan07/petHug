@@ -98,8 +98,8 @@
               <p class="card-text">
                 <strong>Type:</strong> <%= pet.Type.name %><br />
                 <strong>Breed:</strong> <%= pet.breed %><br />
-                <strong>Price:</strong> Rp <%= pet.price.toLocaleString() %> <%
-                if (pet.adopted) { %> <br /><span class="text-success"
+                <strong>Price:</strong> <%= pet.priceInRp %> <% if (pet.adopted)
+                { %> <br /><span class="text-success"
                   ><strong>Status:</strong> Adopted</span
                 >
                 <% }else { %>

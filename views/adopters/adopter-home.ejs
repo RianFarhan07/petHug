@@ -73,7 +73,7 @@
               <p class="card-text">
                 <strong>Type:</strong> <%= pet.Type.name %><br />
                 <strong>Breed:</strong> <%= pet.breed %><br />
-                <strong>Price:</strong> Rp <%= pet.price.toLocaleString() %>
+                <strong>Price:</strong> <%= pet.priceInRp %>
                 <br />
                 <strong>Waiting Time:</strong> <%= timeWaiting(pet.createdAt) %>
               </p>

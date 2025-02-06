@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
+    get priceInRp() {
+      return `Rp. ${this.price.toLocaleString("id-ID")}`;
+    }
+
     static gender() {
       return ["Male", "Female"];
     }

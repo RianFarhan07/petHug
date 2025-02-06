@@ -1,4 +1,4 @@
-const { User, Profile } = require("../models");
+const { User, Pet, Profile } = require("../models");
 const bcrypt = require("bcryptjs");
 
 class UserController {
@@ -87,6 +87,48 @@ class UserController {
       req.session.destroy();
       res.redirect("/");
     } catch (error) {
+      res.send(error);
+    }
+  }
+
+  static async profile(req, res) {
+    try {
+      const userId = req.session.user.userId;
+      const user = await User.findByPk(userId, {
+        include: {
+          model: Profile,
+        },
+      });
+      const genderOption = Pet.gender();
+      // res.send(user);
+      res.render("auth-pages/profile-form", { user, genderOption });
+    } catch (error) {
+      console.log(error);
+
+      res.send(error);
+    }
+  }
+
+  static async updateProfile(req, res) {
+    try {
+      const { fullname, phoneNumber, address, gender, profilePicture } =
+        req.body;
+      const userId = req.session.user.userId;
+      await Profile.update(
+        {
+          fullname,
+          phoneNumber,
+          address,
+          gender,
+          profilePicture,
+        },
+        {
+          where: { UserId: userId },
+        }
+      );
+      res.redirect("/profile");
+    } catch (error) {
+      console.log(error);
       res.send(error);
     }
   }

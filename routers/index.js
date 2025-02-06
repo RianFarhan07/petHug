@@ -39,5 +39,7 @@ router.post(
 );
 // router.get("/shelter/:petId", ShelterController.petDetail);
 router.get("/logout", UserController.logOut);
+router.get("/profile", UserController.profile);
+router.post("/profile/edit", UserController.updateProfile);
 
 module.exports = router;

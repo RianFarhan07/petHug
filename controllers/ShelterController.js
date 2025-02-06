@@ -1,3 +1,4 @@
+const { default: Swal } = require("sweetalert2");
 const { Pet, Type } = require("../models");
 class ShelterController {
   static async getAllPet(req, res) {
@@ -14,7 +15,7 @@ class ShelterController {
       });
       console.log(pets);
 
-      res.render("shelter-home", { pets, user: req.session.user });
+      res.render("shelters/shelter-home", { pets, user: req.session.user });
     } catch (error) {
       console.log(error);
 
@@ -25,7 +26,11 @@ class ShelterController {
     const { errors } = req.query;
     try {
       const types = await Type.findAll();
-      res.render("add-pet.ejs", { user: req.session.user, types, errors });
+      res.render("shelters/add-pet.ejs", {
+        user: req.session.user,
+        types,
+        errors,
+      });
     } catch (error) {
       console.log(error);
       res.send(error);
@@ -61,6 +66,12 @@ class ShelterController {
     } catch (error) {
       if (error.name === "SequelizeValidationError") {
         const errors = error.errors.map((err) => err.message);
+        // Swal.fire({
+        //   icon: "error",
+        //   title: "Validation Error",
+        //   text: errors.join(";"),
+        //   confirmButtonColor: "#3498db",
+        // });
         res.redirect(`/shelter/addPet?errors=` + errors.join(";"));
       } else {
         console.log(error);
@@ -78,7 +89,7 @@ class ShelterController {
       const healthStatusOption = Pet.healthStatus();
       console.log(pet);
 
-      res.render("edit-pet.ejs", {
+      res.render("shelters/edit-pet.ejs", {
         pet,
         types,
         user: req.session.user,
@@ -129,6 +140,7 @@ class ShelterController {
     } catch (error) {
       if (error.name === "SequelizeValidationError") {
         const errors = error.errors.map((err) => err.message);
+
         res.redirect(`/shelter/addPet?errors=` + errors.join(";"));
       } else {
         console.log(error);

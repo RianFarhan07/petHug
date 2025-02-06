@@ -3,13 +3,14 @@ const bcrypt = require("bcryptjs");
 
 class UserController {
   static async registerForm(req, res) {
+    const { errors } = req.query;
     try {
       if (req.session.user) {
         return res.redirect(
           req.session.user.userRole === "adopter" ? "/adopter" : "/shelter"
         );
       }
-      res.render("auth-pages/register-form");
+      res.render("auth-pages/register-form", { errors });
     } catch (error) {
       res.send(error);
     }
@@ -30,8 +31,14 @@ class UserController {
 
       res.redirect("/login");
     } catch (error) {
-      console.log(error);
-      res.send(error);
+      if (error.name === "SequelizeUniqueConstraintError") {
+        const errors = error.errors.map((err) => err.message);
+        res.redirect(`/register?errors=Email Already Exists`);
+        // res.send(error);
+      } else {
+        console.log(error);
+        res.send(error);
+      }
     }
   }
   static async loginForm(req, res) {
@@ -78,7 +85,7 @@ class UserController {
   static async logOut(req, res) {
     try {
       req.session.destroy();
-      res.redirect("/login");
+      res.redirect("/");
     } catch (error) {
       res.send(error);
     }

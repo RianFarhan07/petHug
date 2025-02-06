@@ -5,7 +5,11 @@ class AdopterController {
   static async home(req, res) {
     try {
       const pets = await Pet.findLongest();
-      res.render("adopter-home", { user: req.session.user, pets, timeWaiting });
+      res.render("adopters/adopter-home", {
+        user: req.session.user,
+        pets,
+        timeWaiting,
+      });
     } catch (error) {
       console.log(error);
       res.send(error);
@@ -20,7 +24,7 @@ class AdopterController {
           model: Type,
         },
       });
-      res.render("adopter-pet-detail.ejs", {
+      res.render("adopters/adopter-pet-detail.ejs", {
         user: req.session.user,
         pet,
         timeWaiting,
@@ -61,7 +65,7 @@ class AdopterController {
         },
       });
       // res.send(adoptionRequests);
-      res.render("adopter-my-adoption.ejs", {
+      res.render("adopters/adopter-my-adoption.ejs", {
         user: req.session.user,
         adoptionRequests,
       });

@@ -1,7 +1,4 @@
-const AdopterController = require("../controllers/AdopterController");
 const Controller = require("../controllers/Controller");
-
-const ShelterController = require("../controllers/ShelterController");
 
 const UserController = require("../controllers/userController");
 const { isAuthenticated, isAdopter, isShelter } = require("../middleware/auth");
@@ -16,28 +13,9 @@ router.get("/", Controller.home);
 
 router.use(isAuthenticated);
 
-router.get("/adopter", isAdopter, AdopterController.home);
-router.get("/adopter/request", isAdopter, AdopterController.myAdoption);
-router.get("/adopter/search", isAdopter, AdopterController.searchForm);
-router.get("/adopter/:petId", isAdopter, AdopterController.petDetail);
-router.post("/adopter/:petId/adopt", isAdopter, AdopterController.adoptPet);
-router.get("/shelter", isShelter, ShelterController.getAllPet);
-router.get("/shelter/addPet", ShelterController.addPetForm);
-router.post("/shelter/addPet", ShelterController.addPet);
-router.get("/shelter/myPetRequest", isShelter, ShelterController.myPetRequest);
-router.get("/shelter/:petId/edit", ShelterController.editPetForm);
-router.post("/shelter/:petId/edit", ShelterController.editPet);
-router.get("/shelter/:petId/delete", ShelterController.deletePet);
-router.get("/shelter/:requestId/detail", ShelterController.requestDetail);
-router.post(
-  "/shelter/requests/:requestId/reject",
-  ShelterController.rejectRequest
-);
-router.post(
-  "/shelter/requests/:requestId/approve",
-  ShelterController.acceptRequest
-);
-// router.get("/shelter/:petId", ShelterController.petDetail);
+router.use("/shelter", require("./shelter"));
+router.use("/adopter", require("./adopter"));
+
 router.get("/logout", UserController.logOut);
 router.get("/profile", UserController.profile);
 router.post("/profile/edit", UserController.updateProfile);

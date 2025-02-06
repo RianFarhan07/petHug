@@ -23,9 +23,19 @@ router.post("/adopter/:petId/adopt", isAdopter, AdopterController.adoptPet);
 router.get("/shelter", isShelter, ShelterController.getAllPet);
 router.get("/shelter/addPet", ShelterController.addPetForm);
 router.post("/shelter/addPet", ShelterController.addPet);
+router.get("/shelter/myPetRequest", isShelter, ShelterController.myPetRequest);
 router.get("/shelter/:petId/edit", ShelterController.editPetForm);
 router.post("/shelter/:petId/edit", ShelterController.editPet);
 router.get("/shelter/:petId/delete", ShelterController.deletePet);
+router.get("/shelter/:requestId/detail", ShelterController.requestDetail);
+router.post(
+  "/shelter/requests/:requestId/reject",
+  ShelterController.rejectRequest
+);
+router.post(
+  "/shelter/requests/:requestId/approve",
+  ShelterController.acceptRequest
+);
 // router.get("/shelter/:petId", ShelterController.petDetail);
 router.get("/logout", UserController.logOut);
 

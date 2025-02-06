@@ -24,20 +24,20 @@
         <% adoptionRequests.forEach(request => { %>
         <div class="col-md-4 mb-4">
           <div class="card">
-            <% if (request.Pet.image) { %>
+            <% if (request.Pet?.image) { %>
             <img
-              src="<%= request.Pet.image %>"
+              src="<%= request.Pet?.image %>"
               class="card-img-top"
-              alt="<%= request.Pet.name %>"
+              alt="<%= request.Pet?.name %>"
               style="height: 200px; object-fit: cover"
             />
             <% } %>
             <div class="card-body">
-              <h5 class="card-title"><%= request.Pet.name %></h5>
+              <h5 class="card-title"><%= request.Pet?.name %></h5>
               <p class="card-text">
                 <strong>Request Status:</strong>
                 <span
-                  class="badge <%= request.status === 'pending' ? 'bg-warning' : request.status === 'approved' ? 'bg-success' : 'bg-danger' %>"
+                  class="badge <%= request.status === 'Pending' ? 'bg-warning' : request.status === 'Approved' ? 'bg-success' : 'bg-danger' %>"
                 >
                   <%= request.status.toUpperCase() %>
                 </span>

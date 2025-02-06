@@ -1,5 +1,7 @@
 const { default: Swal } = require("sweetalert2");
-const { Pet, Type } = require("../models");
+const { Pet, Type, AdoptionRequest, User, Profile } = require("../models");
+const { Op } = require("sequelize");
+const { timeWaiting } = require("../helpers/timeWaiting");
 class ShelterController {
   static async getAllPet(req, res) {
     try {
@@ -15,7 +17,11 @@ class ShelterController {
       });
       console.log(pets);
 
-      res.render("shelters/shelter-home", { pets, user: req.session.user });
+      res.render("shelters/shelter-home", {
+        pets,
+        user: req.session.user,
+        timeWaiting,
+      });
     } catch (error) {
       console.log(error);
 
@@ -69,7 +75,7 @@ class ShelterController {
         // Swal.fire({
         //   icon: "error",
         //   title: "Validation Error",
-        //   text: errors.join(";"),
+        //   text: "test",
         //   confirmButtonColor: "#3498db",
         // });
         res.redirect(`/shelter/addPet?errors=` + errors.join(";"));
@@ -158,6 +164,121 @@ class ShelterController {
         },
       });
       res.redirect("/shelter");
+    } catch (error) {
+      console.log(error);
+      res.send(error);
+    }
+  }
+  static async myPetRequest(req, res) {
+    try {
+      const myPets = await Pet.findAll({
+        where: {
+          UserId: req.session.user.userId,
+        },
+      });
+
+      const petIds = myPets.map((pet) => pet.id);
+      console.log(petIds);
+
+      const requests = await AdoptionRequest.findAll({
+        where: {
+          PetId: {
+            [Op.in]: petIds,
+          },
+        },
+        include: [
+          {
+            model: Pet,
+          },
+          {
+            model: User,
+          },
+        ],
+      });
+      res.render("shelters/my-pet-request.ejs", {
+        requests,
+        user: req.session.user,
+      });
+    } catch (error) {
+      console.log(error);
+      res.send(error);
+    }
+  }
+
+  static async requestDetail(req, res) {
+    try {
+      const { requestId } = req.params;
+      const request = await AdoptionRequest.findByPk(requestId, {
+        include: [
+          {
+            model: Pet,
+            include: {
+              model: Type,
+            },
+          },
+          {
+            model: User,
+            include: {
+              model: Profile,
+            },
+          },
+        ],
+      });
+      // res.send(request);
+      res.render("shelters/request-detail.ejs", {
+        request,
+        user: req.session.user,
+      });
+    } catch (error) {
+      console.log(error);
+      res.send(error);
+    }
+  }
+  static async rejectRequest(req, res) {
+    try {
+      const { requestId } = req.params;
+      await AdoptionRequest.update(
+        {
+          status: "Rejected",
+        },
+        {
+          where: {
+            id: requestId,
+          },
+        }
+      );
+      res.redirect("/shelter/myPetRequest");
+    } catch (error) {
+      console.log(error);
+      res.send(error);
+    }
+  }
+  static async acceptRequest(req, res) {
+    try {
+      const { requestId } = req.params;
+      await AdoptionRequest.update(
+        {
+          status: "Approved",
+        },
+        {
+          where: {
+            id: requestId,
+          },
+        }
+      );
+
+      const request = await AdoptionRequest.findByPk(requestId, {
+        attributes: ["PetId"],
+      });
+      // console.log(petId);
+
+      await Pet.update(
+        {
+          adopted: true,
+        },
+        { where: { id: request.PetId } }
+      );
+      res.redirect("/shelter/myPetRequest");
     } catch (error) {
       console.log(error);
       res.send(error);

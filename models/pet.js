@@ -11,7 +11,11 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Pet.belongsTo(models.Type);
       Pet.belongsTo(models.User);
-      Pet.hasMany(models.AdoptionRequest);
+      Pet.hasMany(models.AdoptionRequest, {
+        foreignKey: "PetId",
+        onDelete: "CASCADE", // Jika Pet dihapus, AdoptionRequest ikut terhapus
+        hooks: true,
+      });
     }
 
     static gender() {

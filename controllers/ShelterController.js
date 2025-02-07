@@ -275,6 +275,7 @@ class ShelterController {
       res.send(error);
     }
   }
+
   static async rejectRequest(req, res) {
     try {
       const { requestId } = req.params;
@@ -294,6 +295,7 @@ class ShelterController {
       res.send(error);
     }
   }
+
   static async acceptRequest(req, res) {
     try {
       const { requestId } = req.params;

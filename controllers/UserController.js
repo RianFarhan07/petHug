@@ -35,6 +35,9 @@ class UserController {
         const errors = error.errors.map((err) => err.message);
         res.redirect(`/register?errors=Email Already Exists`);
         // res.send(error);
+      } else if (error.name === "SequelizeValidationError") {
+        const errors = error.errors.map((err) => err.message);
+        res.redirect(`/register?errors=${errors}`);
       } else {
         console.log(error);
         res.send(error);

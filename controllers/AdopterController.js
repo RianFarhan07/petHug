@@ -16,6 +16,7 @@ class AdopterController {
       res.send(error);
     }
   }
+
   static async petDetail(req, res) {
     const { petId } = req.params;
     const { success } = req.query;
@@ -36,6 +37,7 @@ class AdopterController {
       res.send(error);
     }
   }
+
   static async adoptPet(req, res) {
     const { petId } = req.params;
     try {

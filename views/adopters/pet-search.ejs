@@ -75,6 +75,22 @@
         background: var(--soft-background);
         border-radius: 10px;
       }
+
+      .btn-search {
+        background: linear-gradient(
+          to right,
+          var(--primary-color),
+          var(--secondary-color)
+        ) !important;
+
+        border: none !important;
+        transition: transform 0.2s ease !important;
+      }
+
+      .btn-search:hover {
+        transform: translateY(-3px) !important;
+        box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4) !important;
+      }
     </style>
   </head>
   <body>
@@ -109,7 +125,10 @@
                   </select>
                 </div>
                 <div class="col-12">
-                  <button type="submit" class="btn btn-primary w-100">
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-search w-100"
+                  >
                     Search Pets
                   </button>
                 </div>

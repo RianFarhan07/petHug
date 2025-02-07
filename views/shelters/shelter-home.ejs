@@ -71,16 +71,16 @@
     <%- include('../partials/navbar.ejs') %>
 
     <div class="container mt-5">
-      <h2 class="text-center mb-4 text-dark">Daftar Pet Anda</h2>
+      <h2 class="text-center mb-4 text-dark">Your Pet List</h2>
 
       <div class="row">
         <% if (pets.length === 0) { %>
         <div class="col-12">
           <div class="empty-state">
-            <h3>Belum Ada Pet</h3>
-            <p class="text-muted">Anda belum menambahkan pet apapun</p>
+            <h3>Doesn't have pet yet</h3>
+            <p class="text-muted">Please Add Pet</p>
             <a href="/shelter/addPet" class="btn btn-primary mt-3"
-              >Tambah Pet Baru</a
+              >Add New Pet</a
             >
           </div>
         </div>
